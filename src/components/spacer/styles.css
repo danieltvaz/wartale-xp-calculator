@@ -1,0 +1,9 @@
+.spacer--vertical {
+  height: 18px;
+  width: 1px;
+}
+
+.spacer--horizontal {
+  width: 18px;
+  height: 1px;
+}
