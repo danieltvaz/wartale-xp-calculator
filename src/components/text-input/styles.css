@@ -1,0 +1,15 @@
+.textinput--wrapper {
+}
+
+.textinput--input {
+  padding: 4px 10px 4px 10px;
+  background: #fff;
+  margin: 0;
+  height: 26px;
+  width: 170px;
+  border: none;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
