@@ -13,7 +13,6 @@ import Spacer from "./components/spacer";
 import TextInput from "./components/text-input";
 import Typography from "./components/typography";
 import { XP_TABLE } from "./constants/xp-table";
-//@ts-ignore
 import sound from "./assets/audio/alert.wav";
 import useCounter from "./hooks/useCounter";
 
@@ -98,6 +97,7 @@ function App() {
             currentXpInRealUnitValue > +XP_TABLE[index - 1]?.totalXp &&
             currentXpInRealUnitValue < +XP_TABLE[index + 1]?.totalXp
         );
+        console.log(currentXpIndex);
         return currentXpIndex[1].totalXp;
       };
 
@@ -112,16 +112,6 @@ function App() {
     const targetXpWithoutMask = Number(targetXp.replace(/[\,\.]/g, ""));
 
     setResult((targetXpWithoutMask - currentXpWithoutMask).toString());
-  }
-
-  function generateXpListForSelect() {
-    const xpListForSelect = XP_TABLE.map((xpData, index) => ({
-      id: index,
-      value: JSON.stringify(xpData),
-      title: xpData.level,
-    }));
-
-    return xpListForSelect;
   }
 
   useEffect(() => {
