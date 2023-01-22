@@ -12,3 +12,8 @@
   background: #cbcaca;
   color: rgba(44, 44, 44, 0.412);
 }
+
+.button:active {
+  background-color: #3d669495;
+  transition: all 0.5s;
+}
