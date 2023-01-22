@@ -30,7 +30,7 @@ function App() {
   const [customLevel, setCustomLevel] = useState("");
 
   function allValid() {
-    if (unit && currentXp) return true;
+    if (unit !== "Unit" && currentXp && targetXp) return true;
     else return false;
   }
 
@@ -115,7 +115,7 @@ function App() {
         <Typography>Digite seu XP atual e clique em começar contador</Typography>
         <Spacer orientation="vertical" />
         <SectionContainer direction="row">
-          <TextInput value={currentXp} onChange={(e) => setCurrentXp(+e.target.value)} />
+          <TextInput value={currentXp.toString()} onChange={(e) => setCurrentXp(+e.target.value)} type="number" />
           <Spacer orientation="horizontal" />
           <CustomSelect
             onChange={(e) => setUnit(e.currentTarget.value as "m" | "bi")}
@@ -137,7 +137,7 @@ function App() {
         <Spacer orientation="vertical" />
         <Typography>Digite seu XP no momento que o contador zerou</Typography>
         <Spacer orientation="vertical" />
-        <TextInput value={targetXp} onChange={(e) => setTargetXp(+e.target.value)} />
+        <TextInput value={targetXp.toString()} onChange={(e) => setTargetXp(+e.target.value)} type="number" />
         <Spacer orientation="vertical" />
         <Button onClick={calculateXpDiference} disabled={!allValid()}>
           Calcular
