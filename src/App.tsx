@@ -10,6 +10,7 @@ import SectionContainer from "./components/section-container";
 import Spacer from "./components/spacer";
 import TextInput from "./components/text-input";
 import Typography from "./components/typography";
+import { XP_TABLE, XP_TABLE_TYPE } from "./constants/xp-table";
 //@ts-ignore
 import sound from "./assets/audio/alert.wav";
 import useCounter from "./hooks/useCounter";
@@ -25,6 +26,7 @@ function App() {
   const [result, setResult] = useState("");
   const [unit, setUnit] = useState<"M" | "BI">("M");
   const [customTime, setCustomTime] = useState("16");
+  const [currentLevel, setCurrentLevel] = useState({} as XP_TABLE_TYPE);
 
   function formatResult(value: string) {
     const valueInNumber = Number(value);
@@ -56,6 +58,7 @@ function App() {
     const perMinute = formatResult(result);
     const perHour = formatResult(String(+result * 60));
     const perCustomTime = formatResult(String(+result * 60 * +customTime));
+    const hourToNextLevel = currentLevel.
 
     return { perMinute, perHour, perCustomTime };
   }
@@ -65,6 +68,16 @@ function App() {
     const targetXpWithoutMask = Number(targetXp.replace(/[\,\.]/g, ""));
 
     setResult((targetXpWithoutMask - currentXpWithoutMask).toString());
+  }
+
+  function generateXpListForSelect() {
+    const xpListForSelect = XP_TABLE.map((xpData, index) => ({
+      id: index,
+      value: xpData,
+      title: xpData.level,
+    }));
+
+    return xpListForSelect;
   }
 
   useEffect(() => {
@@ -80,6 +93,11 @@ function App() {
         <Typography>Digite seu XP atual e clique em começar contador</Typography>
         <Spacer orientation="vertical" />
         <SectionContainer direction="row">
+          <CustomSelect
+            onChange={(e) => setCurrentLevel(e.currentTarget.value as string)}
+            options={[...generateXpListForSelect()]}
+          />
+          <Spacer orientation="horizontal" />
           <TextInput value={currentXp} onChange={(e) => setCurrentXp(e.target.value)} />
           <Spacer orientation="horizontal" />
           <CustomSelect
