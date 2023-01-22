@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/wartale-xp-calculator/static/css/main.bd14f424.css",
-    "main.js": "/wartale-xp-calculator/static/js/main.e7d69947.js",
+    "main.js": "/wartale-xp-calculator/static/js/main.b745ee7b.js",
     "static/js/27.7642738a.chunk.js": "/wartale-xp-calculator/static/js/27.7642738a.chunk.js",
     "static/media/alert.wav": "/wartale-xp-calculator/static/media/alert.ecd48317d3fee8df655e.wav",
     "index.html": "/wartale-xp-calculator/index.html"
   },
   "entrypoints": [
     "static/css/main.bd14f424.css",
-    "static/js/main.e7d69947.js"
+    "static/js/main.b745ee7b.js"
   ]
 }
