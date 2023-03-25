@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "./components/button";
 import CustomSelect from "./components/custom-select";
@@ -44,6 +44,7 @@ function App() {
   }
 
   function formatResult(value: number) {
+    console.log(value);
     if (value / NUMBERS.m < 1000) {
       return `${value / NUMBERS.m} m`;
     }
