@@ -1,0 +1,17 @@
+.navigation-container {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  background: #513d24;
+  gap: 12px;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.link {
+  color: #fff;
+  background: #bdaf94;
+  border-radius: 10px;
+  padding: 8px;
+  text-decoration: none;
+}
