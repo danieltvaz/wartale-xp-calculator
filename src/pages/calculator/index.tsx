@@ -1,133 +1,97 @@
-import { useEffect, useState } from "react";
+import { formatResult, getNextLevels } from "../../utils";
 
+import AddXPHistoryModal from "../../components/history-add-modal";
 import Button from "../../components/button";
+import { Character } from "../../types";
 import CustomSelect from "../../components/custom-select";
+import { DEFAULT_TIME } from "../../constants/params";
 import Divider from "../../components/divider";
-import Logo from "../../components/logo";
 import MainWrapper from "../../components/main-wrapper";
-import { NUMBERS } from "../../constants/numbers";
 import NavigationHeader from "../../components/navigation-header";
 import SectionContainer from "../../components/section-container";
 import Spacer from "../../components/spacer";
 import TextInput from "../../components/text-input";
 import Typography from "../../components/typography";
 import { XP_TABLE } from "../../constants/xp-table";
-import { router } from "../../router";
-import sound from "../../assets/audio/alert.wav";
+import charactersHandler from "../../utils/characters-handler";
+import historyHandler from "../../utils/history-handler";
+import useCalculator from "../../hooks/useCalculator";
 import useCounter from "../../hooks/useCounter";
+import { useState } from "react";
 
-const alertSound = new Audio(sound);
+function CalculatorPage() {
+  const {
+    currentXp,
+    unit,
+    targetXp,
+    result,
+    currentLevelXp,
+    setCurrentXp,
+    setUnit,
+    setTargetXp,
+    allValid,
+    resetAll,
+    setCustomLevel,
+  } = useCalculator();
 
-const DEFAULT_TIME = 60;
+  const { count, clearCounter, startCounter } = useCounter();
 
-function CalculatorPage(props: any) {
-  const { count, startCounter, clearCounter } = useCounter();
-  const [currentXp, setCurrentXp] = useState(0);
-  const [targetXp, setTargetXp] = useState(0);
-  const [result, setResult] = useState(0);
-  const [unit, setUnit] = useState<"m" | "bi" | "Unit">("Unit");
-  const [customTime, setCustomTime] = useState(16);
-  const [customLevel, setCustomLevel] = useState("");
+  const { addHistory } = historyHandler();
 
-  function allValid() {
-    if (unit !== "Unit" && currentXp && targetXp) return true;
-    else return false;
-  }
+  const [addHistoryModal, setAddHistoryModal] = useState(false);
 
-  function resetAll() {
-    clearCounter();
-    setCurrentXp(0);
-    setTargetXp(0);
-    setResult(0);
-    setUnit("Unit");
-    setCustomTime(0);
-  }
+  const { getAllCharacters, getCharacter } = charactersHandler();
 
-  function formatResult(value: number) {
-    if (value / NUMBERS.m < 1000) {
-      return `${value / NUMBERS.m} m`;
-    }
-    if (value / NUMBERS.bi < 1000) {
-      return `${value / NUMBERS.bi} bi`;
-    }
-    if (value / NUMBERS.tri < 1000) {
-      return `${value / NUMBERS.tri} tri`;
-    }
-  }
-
-  function getCurrentAndNextLevels() {
-    const currentXpInRealValue = +currentXp * NUMBERS[unit as keyof typeof NUMBERS];
-
-    const currentAndNextLevel = XP_TABLE.filter(
-      (_, index) =>
-        currentXpInRealValue > +XP_TABLE[index - 1]?.totalXp && currentXpInRealValue < +XP_TABLE[index + 1]?.totalXp
-    );
-
-    return { currentLevel: currentAndNextLevel[0], nextLevel: currentAndNextLevel[1] };
-  }
-
-  function calculateNextLevelInHour() {
-    try {
-      const currentXpInRealValue = +currentXp * NUMBERS[unit as keyof typeof NUMBERS];
-
-      const nextLevelTotalXp = +getCurrentAndNextLevels().nextLevel.totalXp;
-
-      const hours = ((nextLevelTotalXp - currentXpInRealValue) / result / 60).toFixed(0);
-      const minutes = (((nextLevelTotalXp - currentXpInRealValue) / result) % 60).toFixed(0);
-
-      return { hours, minutes };
-    } catch {
-      alert("valores inválidos");
-    }
-  }
-
-  function calculateCustomLevel() {
-    try {
-      const currentXpInRealValue = +currentXp * NUMBERS[unit as keyof typeof NUMBERS];
-
-      const nextLevelTotalXp = +customLevel ? +customLevel : +getCurrentAndNextLevels()?.nextLevel?.totalXp;
-
-      const hours = ((nextLevelTotalXp - currentXpInRealValue) / result / 60).toFixed(0);
-      const minutes = (((nextLevelTotalXp - currentXpInRealValue) / result) % 60).toFixed(0);
-
-      return { hours, minutes };
-    } catch {
-      alert("valores inválidos");
-    }
-  }
-
-  function calculateXpDiference() {
-    const currentXpInRealValue = +currentXp * NUMBERS[unit as keyof typeof NUMBERS];
-    const targetXpInRealValue = +targetXp * NUMBERS[unit as keyof typeof NUMBERS];
-    setResult(targetXpInRealValue - currentXpInRealValue);
-  }
-
-  useEffect(() => {
-    if (!count) {
-      alertSound.play();
-    }
-  }, [count]);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character>();
 
   return (
     <MainWrapper>
-      <Logo />
-      <NavigationHeader routes={router.routes} />
+      <NavigationHeader />
+      <AddXPHistoryModal
+        defaultCharacter={selectedCharacter}
+        xpData={{
+          currentLevel: currentLevelXp?.level,
+          currentXp,
+          nextLevelIn: result?.nextLevelIn,
+          perHour: result?.perHour,
+          perMinute: result?.perMinute,
+          targetXp,
+          unit,
+          date: new Date().getTime(),
+        }}
+        setVisible={setAddHistoryModal}
+        visible={addHistoryModal}
+        onAdd={addHistory}
+      />
       <SectionContainer direction="column">
+        <CustomSelect
+          onChange={(e) => setSelectedCharacter(getCharacter(+e.currentTarget.value))}
+          options={[
+            { id: 0, title: "Personagem" },
+            ...getAllCharacters().map((char, index) => ({
+              id: char.id,
+              title: char.name,
+              value: char.id,
+            })),
+          ]}
+        />
         <Typography>Digite seu XP atual e clique em começar contador</Typography>
         <Spacer orientation="vertical" />
         <SectionContainer direction="row">
           <TextInput value={currentXp.toString()} onChange={(e) => setCurrentXp(+e.target.value)} type="number" />
           <Spacer orientation="horizontal" />
           <CustomSelect
-            onChange={(e) => setUnit(e.currentTarget.value as "m" | "bi")}
+            onChange={(e) => setUnit(e.currentTarget.value as "m" | "bi" | "tri" | "unit")}
             value={unit}
             options={[
-              { id: 0, value: undefined, title: "Unit" },
-              { id: 1, value: "m", title: "M" },
-              { id: 2, value: "bi", title: "BI" },
+              { id: "0", value: "unit", title: "Unit" },
+              { id: "1", value: "m", title: "M" },
+              { id: "2", value: "bi", title: "BI" },
+              { id: "3", value: "tri", title: "TRI" },
             ]}
           />
         </SectionContainer>
+        {!!currentLevelXp?.level && <Typography>Nível atual {currentLevelXp?.level}</Typography>}
         <Spacer orientation="vertical" />
         <Typography>{count} segundos restantes</Typography>
         <Spacer orientation="vertical" />
@@ -140,45 +104,37 @@ function CalculatorPage(props: any) {
         <Spacer orientation="vertical" />
         <TextInput value={targetXp.toString()} onChange={(e) => setTargetXp(+e.target.value)} type="number" />
         <Spacer orientation="vertical" />
-        <Button onClick={calculateXpDiference} disabled={!allValid()}>
-          Calcular
+        <Button onClick={() => setAddHistoryModal(true)} disabled={!allValid()}>
+          Salvar
         </Button>
         <Spacer orientation="vertical" />
-
-        <Button onClick={resetAll}>Resetar</Button>
+        <Button
+          onClick={() => {
+            resetAll();
+            clearCounter();
+          }}>
+          Resetar
+        </Button>
         <Spacer orientation="vertical" />
         <Spacer orientation="vertical" />
-        {!!result && (
+        {!!result.perMinute && (
           <>
-            <Typography>Nível atual {getCurrentAndNextLevels().currentLevel.level}</Typography>
             <Divider />
-            <Typography>Você fez {formatResult(result)} de XP por minuto</Typography>
+            <Typography>Você fez {formatResult(result.perMinute)} de XP por minuto</Typography>
             <Divider />
-            <Typography>Em uma hora faria {formatResult(result * 60)}</Typography>
+            <Typography>Em uma hora faria {formatResult(result.perHour)} de XP</Typography>
             <Divider />
             <Typography>
-              Vai upar em {calculateNextLevelInHour()?.hours} horas e {calculateNextLevelInHour()?.minutes} minutos
+              Vai upar em {result.nextLevelIn.hours} horas e {result.nextLevelIn.minutes} minutos
             </Typography>
             <Divider />
             <Typography>
-              Em{" "}
-              <input className="hour-input" value={customTime} onChange={(e) => setCustomTime(+e.target.value ?? 0)} />{" "}
-              hora(s) faria {formatResult(result * 60 * customTime)}
-            </Typography>
-            <Divider />
-            <Typography>
-              Chegará no nível {/* @ts-ignore */}
+              Chegará no nível{" "}
               <CustomSelect
-                options={XP_TABLE.filter(
-                  (tableData) => +tableData.level > +getCurrentAndNextLevels().currentLevel.level
-                ).map((tableData, index) => ({
-                  id: index + 1,
-                  title: tableData.level,
-                  value: tableData.totalXp,
-                }))}
+                options={getNextLevels(XP_TABLE, currentLevelXp.level.toString())}
                 onChange={(e) => setCustomLevel(e.currentTarget.value)}
               />{" "}
-              em {calculateCustomLevel()?.hours} hora(s) e {calculateCustomLevel()?.minutes} minutos
+              em {result.customLevelIn.hours} hora(s) e {result.customLevelIn.minutes} minutos
             </Typography>
           </>
         )}
