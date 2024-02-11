@@ -1,19 +1,20 @@
 import "./styles.css";
 
-import { Link, RouteObject } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Logo from "../logo";
+import { router } from "../../router";
 
-type NavigationHeaderProps = {
-  routes: RouteObject[];
-};
-
-export default function NavigationHeader({ routes }: NavigationHeaderProps) {
+export default function NavigationHeader() {
   return (
-    <div className="navigation-container">
-      {routes.map((route, index) => (
-        <Link className="link" key={`${route}-${index}`} to={route.path ?? "/"}>
-          {route?.id}
-        </Link>
-      ))}
-    </div>
+    <>
+      <Logo />
+      <div className="navigation-container">
+        {router.routes.map((route, index) => (
+          <Link className="link" key={`${route}-${index}`} to={route.path ?? "/"}>
+            {route?.id}
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }
