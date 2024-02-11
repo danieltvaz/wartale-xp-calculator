@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import CalculatorPage from "../pages/calculator";
+import CharactersPage from "../pages/characters";
 import HistoryPage from "../pages/history";
 
 export const router = createBrowserRouter(
@@ -14,6 +15,11 @@ export const router = createBrowserRouter(
       path: "/history",
       element: <HistoryPage />,
       id: "Histórico",
+    },
+    {
+      path: "/personagens",
+      element: <CharactersPage />,
+      id: "Personagens",
     },
   ],
   { basename: "/wartale-xp-calculator" }
