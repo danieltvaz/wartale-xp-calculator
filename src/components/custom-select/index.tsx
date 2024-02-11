@@ -1,11 +1,11 @@
 import "./styles.css";
 
-import { HTMLAttributes, HTMLProps } from "react";
+import { HTMLProps } from "react";
 
 type Option = {
-  id: number;
-  title: string;
-  value: any;
+  id: number | string;
+  title: string | number | undefined;
+  value?: number | string;
   default?: boolean;
 };
 
