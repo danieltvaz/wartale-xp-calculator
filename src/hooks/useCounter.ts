@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import sound from "../assets/audio/alert.wav";
+
+const alertSound = new Audio(sound);
+
 export default function useCounter(seconds: number = 60) {
   const [count, setCount] = useState(seconds);
   const intervalRef = useRef(0);
@@ -17,6 +21,12 @@ export default function useCounter(seconds: number = 60) {
 
   useEffect(() => {
     if (!count) clearCounter();
+  }, [count]);
+
+  useEffect(() => {
+    if (!count) {
+      alertSound.play();
+    }
   }, [count]);
 
   return { startCounter, count, clearCounter };
