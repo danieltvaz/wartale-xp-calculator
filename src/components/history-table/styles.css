@@ -1,0 +1,24 @@
+.history-list--wrapper {
+}
+
+.history-list-content--wrapper {
+  display: flex;
+}
+
+.history-list-table {
+  color: #fff;
+  width: 100%;
+}
+
+.history-list-table thead td {
+  font-weight: 500;
+}
+
+.history-list-table tr td {
+  border: 1px solid #bdaf94;
+  text-align: center;
+}
+
+.history-list-table tr td:first-of-type {
+  width: 100px;
+}

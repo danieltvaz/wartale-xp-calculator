@@ -1,0 +1,25 @@
+.add-xp-history-modal--wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  flex: 1;
+  background-color: #513d24;
+}
+
+.add-xp-history-modal--wrapper_true {
+  display: flex;
+}
+
+.add-xp-history-modal--wrapper_false {
+  display: none;
+}
+
+.add-xp-history-modal-content--wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}

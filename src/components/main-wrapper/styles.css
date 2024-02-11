@@ -5,5 +5,5 @@
   height: 100vh;
   background-color: #bdaf94;
   margin: auto;
-  border: 20px solid transparent;
+  max-width: 680px;
 }
