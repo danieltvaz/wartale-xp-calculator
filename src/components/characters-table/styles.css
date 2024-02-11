@@ -1,0 +1,25 @@
+.character-table {
+  width: 100%;
+}
+
+.character-table td {
+  border: 1px solid #bdaf94;
+  text-align: center;
+}
+
+.character-table tr td:first-of-type {
+  width: 86px;
+}
+
+.character-table td span {
+  color: #fff;
+}
+
+.character-table thead tr {
+  color: #fff;
+  font-weight: 500;
+}
+
+.character-icon {
+  width: 48px;
+}
