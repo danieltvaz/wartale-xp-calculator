@@ -58,10 +58,10 @@ export default function AddXPHistoryModal({
   }, [getAllCharacters]);
 
   const mapsToSelectFactory = useMemo(() => {
-    const newMaps = MAPS.map((map, index) => ({
-      id: index,
+    const newMaps = MAPS.map((map) => ({
+      id: map.id,
       title: `${map.level || "0"} - ${map.name}`,
-      value: index,
+      value: map.id,
     }));
     return newMaps;
   }, []);
