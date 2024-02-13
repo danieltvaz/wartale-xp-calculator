@@ -23,6 +23,8 @@ export type XPHistory = {
   nextLevelIn: { hours: number; minutes: number };
   date: number;
   characterId: number;
+  map: number;
+  partySize: number;
 };
 
 export type Unit = "m" | "bi" | "tri" | "unit";
