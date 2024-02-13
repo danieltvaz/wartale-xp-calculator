@@ -6,6 +6,7 @@ import { Character } from "../../types";
 import CustomSelect from "../../components/custom-select";
 import { DEFAULT_TIME } from "../../constants/params";
 import Divider from "../../components/divider";
+import Logo from "../../components/logo";
 import MainWrapper from "../../components/main-wrapper";
 import NavigationHeader from "../../components/navigation-header";
 import SectionContainer from "../../components/section-container";
@@ -46,7 +47,6 @@ function CalculatorPage() {
 
   return (
     <MainWrapper>
-      <NavigationHeader />
       <AddXPHistoryModal
         defaultCharacter={selectedCharacter}
         xpData={{
@@ -63,40 +63,76 @@ function CalculatorPage() {
         visible={addHistoryModal}
         onAdd={addHistory}
       />
-      <SectionContainer direction="column">
-        <Typography>Digite seu XP atual e clique em começar contador</Typography>
-        <Spacer orientation="vertical" />
-        <SectionContainer direction="row">
-          <TextInput value={currentXp.toString()} onChange={(e) => setCurrentXp(+e.target.value)} type="number" />
-          <Spacer orientation="horizontal" />
+      <SectionContainer justify="center" align="center" width="100%">
+        <Logo />
+      </SectionContainer>
+      <SectionContainer>
+        <NavigationHeader />
+      </SectionContainer>
+      <Divider margin="24px" />
+      <SectionContainer direction="column" flex={3} width="100%">
+        <SectionContainer direction="row" justify="flex-start" gap="12px" align="center" width="100%">
+          <TextInput
+            value={currentXp.toString()}
+            onChange={(e) => setCurrentXp(+e.target.value)}
+            type="number"
+            placeholder="XP Início"
+          />
+
           <CustomSelect
             onChange={(e) => setUnit(e.currentTarget.value as "m" | "bi" | "tri" | "unit")}
             value={unit}
             options={[
-              { id: "0", value: "unit", title: "Unit" },
+              { id: "0", value: "unit", title: "Unidade" },
               { id: "1", value: "m", title: "M" },
               { id: "2", value: "bi", title: "BI" },
               { id: "3", value: "tri", title: "TRI" },
             ]}
           />
+          {<Typography>Level {(currentLevelXp?.level.toString() ?? "- - -").padStart(3, "0")}</Typography>}
         </SectionContainer>
-        {!!currentLevelXp?.level && <Typography>Nível atual {currentLevelXp?.level}</Typography>}
-        <Spacer orientation="vertical" />
-        <Typography>{count} segundos restantes</Typography>
-        <Spacer orientation="vertical" />
-        <Button onClick={startCounter} disabled={count === 0 || count !== DEFAULT_TIME || !currentXp}>
-          Começar contador
-        </Button>
-
-        <Spacer orientation="vertical" />
-        <Typography>Digite seu XP no momento que o contador zerou</Typography>
-        <Spacer orientation="vertical" />
-        <TextInput value={targetXp.toString()} onChange={(e) => setTargetXp(+e.target.value)} type="number" />
-        <Spacer orientation="vertical" />
+        <Divider margin="12px" />
+        <SectionContainer justify="flex-start" gap="24px" align="center" width="100%">
+          <Typography>{count} segundos</Typography>
+          <Button onClick={startCounter} disabled={count === 0 || count !== DEFAULT_TIME || !currentXp}>
+            Começar contador
+          </Button>
+        </SectionContainer>
+        <Divider margin="12px" />
+        <SectionContainer justify="flex-start" gap="24px" align="center" direction="row" width="100%">
+          <TextInput
+            value={targetXp.toString()}
+            onChange={(e) => setTargetXp(+e.target.value)}
+            type="number"
+            placeholder="XP Fim"
+          />
+          <Typography>XP Final</Typography>
+        </SectionContainer>
+        <Divider margin="12px" />
+        <SectionContainer justify="flex-start" gap="24px" align="flex-start" direction="column" width="100%">
+          {!!result.perMinute && (
+            <>
+              <Typography>Você fez {formatResult(result.perMinute)} de XP por minuto</Typography>
+              <Typography>Em uma hora faria {formatResult(result.perHour)} de XP</Typography>
+              <Typography>
+                Vai upar em {result.nextLevelIn.hours} horas e {result.nextLevelIn.minutes} minutos
+              </Typography>
+              <Typography>
+                Chegará no nível{" "}
+                <CustomSelect
+                  options={getNextLevels(XP_TABLE, currentLevelXp?.level?.toString())}
+                  onChange={(e) => setCustomLevel(e.currentTarget.value)}
+                />{" "}
+                em {result.customLevelIn.hours}h e {result.customLevelIn.minutes}m
+              </Typography>
+            </>
+          )}
+        </SectionContainer>
+      </SectionContainer>
+      <SectionContainer direction="row" gap="12px" width="100%" justify="center">
         <Button onClick={() => setAddHistoryModal(true)} disabled={!allValid()}>
           Salvar
         </Button>
-        <Spacer orientation="vertical" />
         <Button
           onClick={() => {
             resetAll();
@@ -104,29 +140,6 @@ function CalculatorPage() {
           }}>
           Resetar
         </Button>
-        <Spacer orientation="vertical" />
-        <Spacer orientation="vertical" />
-        {!!result.perMinute && (
-          <>
-            <Divider />
-            <Typography>Você fez {formatResult(result.perMinute)} de XP por minuto</Typography>
-            <Divider />
-            <Typography>Em uma hora faria {formatResult(result.perHour)} de XP</Typography>
-            <Divider />
-            <Typography>
-              Vai upar em {result.nextLevelIn.hours} horas e {result.nextLevelIn.minutes} minutos
-            </Typography>
-            <Divider />
-            <Typography>
-              Chegará no nível{" "}
-              <CustomSelect
-                options={getNextLevels(XP_TABLE, currentLevelXp.level.toString())}
-                onChange={(e) => setCustomLevel(e.currentTarget.value)}
-              />{" "}
-              em {result.customLevelIn.hours} hora(s) e {result.customLevelIn.minutes} minutos
-            </Typography>
-          </>
-        )}
       </SectionContainer>
     </MainWrapper>
   );

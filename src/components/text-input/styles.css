@@ -7,9 +7,16 @@
   margin: 0;
   height: 26px;
   width: 170px;
+
   border: none;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+
+@media screen and (min-width: 270px) and (max-width: 720px) {
+  .textinput--input {
+    width: 100px;
+  }
 }
