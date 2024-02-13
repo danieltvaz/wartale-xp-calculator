@@ -9,7 +9,7 @@ type Option = {
   default?: boolean;
 };
 
-type CustomSelectProps = {
+export type CustomSelectProps = {
   options: Option[];
 } & HTMLProps<HTMLSelectElement>;
 
