@@ -44,8 +44,6 @@ export default function AddXPHistoryModal({
     return newCharacters;
   }
 
-  console.log(defaultCharacter);
-
   return (
     <div className={`add-xp-history-modal--wrapper add-xp-history-modal--wrapper_${visible}`}>
       <div className="add-xp-history-modal-content--wrapper">
@@ -60,7 +58,7 @@ export default function AddXPHistoryModal({
             />
           </div>
           <Divider />
-          <p>Data: {timeStampToDate((new Date().getTime() as any).date)}</p>
+          <p>Data: {timeStampToDate(new Date().getTime())}</p>
           <Divider />
           <p>Nível atual: {xpData.currentLevel}</p>
           <Divider />

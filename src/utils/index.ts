@@ -46,13 +46,13 @@ export function xpInRealValue(currentXp: number, unit: Unit) {
   return currentXp * NUMBERS[unit];
 }
 
-export function timeStampToDate(timestamp: string) {
+export function timeStampToDate(timestamp: number) {
   const date = new Date(timestamp);
-  const day = +date.getDay() < 10 ? `0${date.getDay()}` : date.getDay();
-  const month = +date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth();
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = date.getMonth().toString().padStart(2, "0");
   const year = date.getFullYear();
-  const hour = +date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
-  const minutes = +date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+  const hour = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
 
   return `${day}/${month}/${year} - ${hour}:${minutes}`;
 }
