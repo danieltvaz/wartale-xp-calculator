@@ -64,17 +64,6 @@ function CalculatorPage() {
         onAdd={addHistory}
       />
       <SectionContainer direction="column">
-        <CustomSelect
-          onChange={(e) => setSelectedCharacter(getCharacter(+e.currentTarget.value))}
-          options={[
-            { id: 0, title: "Personagem" },
-            ...getAllCharacters().map((char, index) => ({
-              id: char.id,
-              title: char.name,
-              value: char.id,
-            })),
-          ]}
-        />
         <Typography>Digite seu XP atual e clique em começar contador</Typography>
         <Spacer orientation="vertical" />
         <SectionContainer direction="row">
