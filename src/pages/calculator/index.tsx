@@ -1,3 +1,4 @@
+import { Character, XPHistory } from "../../types";
 import { formatResult, getNextLevels } from "../../utils";
 
 import AddXPHistoryModal from "../../components/composition_history-add";
@@ -15,6 +16,7 @@ import SectionContainer from "../../components/section-container";
 import TextInput from "../../components/text-input";
 import Typography from "../../components/typography";
 import { XP_TABLE } from "../../constants/xp-table";
+import charactersHandler from "../../utils/characters-handler";
 import historyHandler from "../../utils/history-handler";
 import useCalculator from "../../hooks/useCalculator";
 import useCounter from "../../hooks/useCounter";
@@ -38,9 +40,20 @@ function CalculatorPage() {
   const { count, clearCounter, startCounter } = useCounter();
 
   const { addHistory } = historyHandler();
+  const { addNewCharacter } = charactersHandler();
 
   const [addHistoryModal, setAddHistoryModal] = useState(false);
   const [addCharacterModal, setAddCharacterModal] = useState(false);
+
+  function onAddCharacterHandler(character: Omit<Character, "id">) {
+    addNewCharacter(character);
+    setAddCharacterModal(false);
+  }
+
+  function onAddHistoryHandler(history: Omit<XPHistory, "id">) {
+    addHistory(history);
+    setAddHistoryModal(false);
+  }
 
   return (
     <MainWrapper>
@@ -56,13 +69,12 @@ function CalculatorPage() {
             unit,
             date: new Date().getTime(),
           }}
-          onAddHistory={addHistory}
+          onAddHistory={onAddHistoryHandler}
           onAddCharacter={() => setAddCharacterModal(true)}
         />
       </ModalWrapper>
-
       <BottomModalWrapper isVisible={addCharacterModal} setIsVisible={setAddCharacterModal} zIndex={2}>
-        <CharacterAddModal onAdd={() => {}} />
+        <CharacterAddModal onAdd={onAddCharacterHandler} />
       </BottomModalWrapper>
       <SectionContainer justify="center" align="center" width="100%">
         <Logo />

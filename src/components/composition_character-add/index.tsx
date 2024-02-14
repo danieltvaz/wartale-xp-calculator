@@ -1,22 +1,34 @@
 import { Character, Class } from "../../types";
+import { useMemo, useState } from "react";
 
+import Button from "../button";
 import CustomSelect from "../custom-select";
+import Divider from "../divider";
 import SectionContainer from "../section-container";
 import TextInput from "../text-input";
+import Typography from "../typography";
 
 type Props = {
-  onAdd: (character: Character) => any;
+  onAdd: (character: Omit<Character, "id">) => any;
 };
 
 export default function CharacterAddModal({ onAdd }: Props) {
-  function handleClassChange(charClass: Class) {}
+  const [selectedClass, setSelectedClass] = useState<Class>("" as Class);
+  const [characterName, setCharacterName] = useState("");
+  const [characterLevel, setCharacterLevel] = useState("");
+
+  const isFormValid = !!(selectedClass && characterName && characterLevel);
 
   return (
     <>
-      <SectionContainer>
+      <SectionContainer justify="center">
+        <Typography color="#000">Novo personagem</Typography>
+      </SectionContainer>
+      <Divider margin="24px" />
+      <SectionContainer justify="center">
         <CustomSelect
           defaultValue={"Classe"}
-          onChange={(e) => handleClassChange(e.currentTarget?.value as Class)}
+          onChange={(e) => setSelectedClass(e.currentTarget?.value as Class)}
           options={[
             {
               id: 0,
@@ -75,9 +87,38 @@ export default function CharacterAddModal({ onAdd }: Props) {
             },
           ]}
         />
+        <TextInput
+          placeholder="Nome"
+          style={{ borderRadius: "0px" }}
+          onChange={(e) => setCharacterName(e.target.value)}
+          value={characterName}
+        />
+        <TextInput
+          onChange={(e) => setCharacterLevel(e.target.value)}
+          value={characterLevel}
+          placeholder="Level"
+          type="number"
+          style={{
+            borderTopRightRadius: 20,
+            borderBottomRightRadius: 20,
+            borderTopLeftRadius: "0px",
+            borderBottomLeftRadius: "0px",
+          }}
+        />
       </SectionContainer>
-      <SectionContainer>
-        <TextInput placeholder="Nome" />
+      <Divider margin="16px" />
+      <SectionContainer justify="center">
+        <Button
+          disabled={!isFormValid}
+          onClick={() =>
+            onAdd({
+              name: characterName,
+              className: selectedClass,
+              level: +characterLevel,
+            })
+          }>
+          Adicionar
+        </Button>
       </SectionContainer>
     </>
   );

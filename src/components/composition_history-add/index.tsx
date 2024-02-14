@@ -1,7 +1,7 @@
 import { Character, XPHistory } from "../../types";
 import CustomSelect, { CustomSelectProps } from "../custom-select";
 import { formatResult, timeStampToDate } from "../../utils";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Button from "../button";
 import Divider from "../divider";
@@ -31,8 +31,8 @@ const PARTY_DATA = [
 export default function AddXPHistoryModal({ onAddHistory, xpData, onAddCharacter }: XPHistoryModalProps) {
   const { getAllCharacters } = charactersHandler();
   const [character, setCharacter] = useState(0);
-  const [selectedMap, setSelectedMap] = useState(1);
-  const [selectedPartySize, setSelectPartySize] = useState(1);
+  const [selectedMap, setSelectedMap] = useState(0);
+  const [selectedPartySize, setSelectPartySize] = useState(0);
 
   function handleOnAddHistory() {
     onAddHistory?.({ ...xpData, characterId: character, map: selectedMap, partySize: selectedPartySize });
@@ -59,6 +59,12 @@ export default function AddXPHistoryModal({ onAddHistory, xpData, onAddCharacter
     }));
     return newMaps;
   }, []);
+
+  const isFormValid = !!(character && selectedMap && selectedPartySize);
+
+  useEffect(() => {
+    console.log(character);
+  }, [character]);
 
   return (
     <>
@@ -140,7 +146,9 @@ export default function AddXPHistoryModal({ onAddHistory, xpData, onAddCharacter
       </SectionContainer>
       <Divider margin="12px" />
       <SectionContainer direction="column" justify="flex-end" flex={1} align="center">
-        <Button onClick={handleOnAddHistory}>Salvar</Button>
+        <Button disabled={!isFormValid} onClick={handleOnAddHistory}>
+          Salvar
+        </Button>
       </SectionContainer>
     </>
   );
