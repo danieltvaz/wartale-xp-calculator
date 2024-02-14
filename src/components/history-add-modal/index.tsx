@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { Character, XPHistory } from "../../types";
+import { Character, Map, XPHistory } from "../../types";
 import CustomSelect, { CustomSelectProps } from "../custom-select";
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { formatResult, timeStampToDate } from "../../utils";
@@ -34,7 +34,7 @@ const PARTY_DATA = [
 export default function AddXPHistoryModal({ onAdd, visible, setVisible, xpData }: XPHistoryModalProps) {
   const { getAllCharacters } = charactersHandler();
   const [character, setCharacter] = useState(0);
-  const [selectedMap, setSelectedMap] = useState(0);
+  const [selectedMap, setSelectedMap] = useState(1);
   const [selectedPartySize, setSelectPartySize] = useState(1);
 
   function handleOnAdd() {
@@ -80,7 +80,11 @@ export default function AddXPHistoryModal({ onAdd, visible, setVisible, xpData }
               Mapa:
             </Typography>
             <Spacer orientation="horizontal" />
-            <CustomSelect options={mapsToSelectFactory} onChange={(e) => setSelectedMap(+e.currentTarget?.value)} />
+            <CustomSelect
+              value={selectedMap}
+              options={mapsToSelectFactory}
+              onChange={(e) => setSelectedMap(+e.currentTarget?.value)}
+            />
           </SectionContainer>
           <Divider margin="8px" />
           <SectionContainer>

@@ -1,3 +1,5 @@
+import { MAPS } from "../constants/maps";
+
 export type Class = "ATA" | "AS" | "MS" | "MGS" | "KS" | "FS" | "SS" | "PRS" | "ASS" | "BS";
 
 export type Character = {
@@ -35,3 +37,5 @@ export interface RequireContext {
   <T>(id: string, deep?: boolean): T;
   <T>(id: string, deep?: boolean, filter?: RegExp): T;
 }
+
+export type Map = typeof MAPS;

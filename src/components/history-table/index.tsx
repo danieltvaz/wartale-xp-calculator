@@ -7,6 +7,7 @@ import Spacer from "../spacer";
 import { XPHistory } from "../../types";
 import charactersHandler from "../../utils/characters-handler";
 import { formatResult } from "../../utils";
+import mapHandler from "../../utils/map-handler";
 
 type HistoryTableProps = {
   history: XPHistory[];
@@ -15,6 +16,8 @@ type HistoryTableProps = {
 
 export default function HistoryTable({ history, onRemove }: HistoryTableProps) {
   const { getCharacter } = charactersHandler();
+  const { getMapById } = mapHandler();
+
   return (
     <>
       <Logo />
@@ -37,7 +40,7 @@ export default function HistoryTable({ history, onRemove }: HistoryTableProps) {
                 </tr>
                 <tr>
                   <th>MAPA</th>
-                  <td>{history.map}</td>
+                  <td>{`${getMapById(history.map)?.name ?? "---"}`}</td>
                 </tr>
                 <tr>
                   <th>PARTY</th>
