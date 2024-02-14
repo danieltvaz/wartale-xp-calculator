@@ -62,4 +62,5 @@ export const MAPS = [
   { id: 61, level: "136", name: "Ancient Weapon", role: "[Hunt]" },
   { id: 62, level: "140", name: "Secret Laboratory", role: "[Hunt]" },
   { id: 63, level: "144", name: "Shadow Sanctuary", role: "[Hunt]" },
+  { id: 64, level: "148", name: "Etherborne", role: "[Hunt]" },
 ];
