@@ -1,6 +1,7 @@
 import { formatResult, getNextLevels } from "../../utils";
 
 import AddXPHistoryModal from "../../components/composition_history-add";
+import BottomModalWrapper from "../../components/bottom-modal-wrapper";
 import Button from "../../components/button";
 import CharacterAddModal from "../../components/composition_character-add";
 import CustomSelect from "../../components/custom-select";
@@ -59,10 +60,10 @@ function CalculatorPage() {
           onAddCharacter={() => setAddCharacterModal(true)}
         />
       </ModalWrapper>
-      <ModalWrapper isVisible={addCharacterModal} setIsVisible={setAddCharacterModal} zIndex={2}>
-        <CharacterAddModal onAdd={() => {}} />
-      </ModalWrapper>
 
+      <BottomModalWrapper isVisible={addCharacterModal} setIsVisible={setAddCharacterModal} zIndex={2}>
+        <CharacterAddModal onAdd={() => {}} />
+      </BottomModalWrapper>
       <SectionContainer justify="center" align="center" width="100%">
         <Logo />
       </SectionContainer>
