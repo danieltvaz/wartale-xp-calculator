@@ -15,12 +15,13 @@ export type CustomSelectProps = {
 
 export default function CustomSelect({ options, ...props }: CustomSelectProps) {
   return (
-    <select {...props} className="select">
+    <select className="select" {...props}>
+      {!options.length && <option>- - - - -</option>}
       {options.map((option, index) => (
         <option
           {...(option.default && { disabled: true, hidden: true })}
-          value={option.value}
-          key={`${option.value}-${index}`}>
+          value={option?.value}
+          key={`${option?.value}-${index}`}>
           {option.title}
         </option>
       ))}
