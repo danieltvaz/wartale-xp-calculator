@@ -4,7 +4,8 @@
   align-items: center;
   height: 100vh;
   background-color: #513d24;
-  max-width: 720px;
+  max-width: 420px;
+  margin: auto;
 }
 
 @media screen and (min-width: 270px) and (max-width: 760px) {
