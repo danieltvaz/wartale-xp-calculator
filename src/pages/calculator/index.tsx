@@ -2,7 +2,6 @@ import { formatResult, getNextLevels } from "../../utils";
 
 import AddXPHistoryModal from "../../components/history-add-modal";
 import Button from "../../components/button";
-import { Character } from "../../types";
 import CustomSelect from "../../components/custom-select";
 import { DEFAULT_TIME } from "../../constants/params";
 import Divider from "../../components/divider";
@@ -10,11 +9,9 @@ import Logo from "../../components/logo";
 import MainWrapper from "../../components/main-wrapper";
 import NavigationHeader from "../../components/navigation-header";
 import SectionContainer from "../../components/section-container";
-import Spacer from "../../components/spacer";
 import TextInput from "../../components/text-input";
 import Typography from "../../components/typography";
 import { XP_TABLE } from "../../constants/xp-table";
-import charactersHandler from "../../utils/characters-handler";
 import historyHandler from "../../utils/history-handler";
 import useCalculator from "../../hooks/useCalculator";
 import useCounter from "../../hooks/useCounter";
@@ -41,14 +38,9 @@ function CalculatorPage() {
 
   const [addHistoryModal, setAddHistoryModal] = useState(false);
 
-  const { getAllCharacters, getCharacter } = charactersHandler();
-
-  const [selectedCharacter, setSelectedCharacter] = useState<Character>();
-
   return (
     <MainWrapper>
       <AddXPHistoryModal
-        defaultCharacter={selectedCharacter}
         xpData={{
           currentLevel: currentLevelXp?.level,
           currentXp,
@@ -70,17 +62,17 @@ function CalculatorPage() {
         <NavigationHeader />
       </SectionContainer>
       <Divider margin="24px" />
-      <SectionContainer direction="column" flex={3} width="100%">
+      <SectionContainer direction="column" flex={1} width="100%">
         <SectionContainer direction="row" justify="flex-start" gap="12px" align="center" width="100%">
           <TextInput
             value={currentXp.toString()}
-            onChange={(e) => setCurrentXp(+e.target.value)}
+            onChange={(e) => setCurrentXp(+e.target?.value)}
             type="number"
             placeholder="XP Início"
           />
 
           <CustomSelect
-            onChange={(e) => setUnit(e.currentTarget.value as "m" | "bi" | "tri" | "unit")}
+            onChange={(e) => setUnit(e.currentTarget?.value as "m" | "bi" | "tri" | "unit")}
             value={unit}
             options={[
               { id: "0", value: "unit", title: "Unidade" },
@@ -102,7 +94,7 @@ function CalculatorPage() {
         <SectionContainer justify="flex-start" gap="24px" align="center" direction="row" width="100%">
           <TextInput
             value={targetXp.toString()}
-            onChange={(e) => setTargetXp(+e.target.value)}
+            onChange={(e) => setTargetXp(+e.target?.value)}
             type="number"
             placeholder="XP Fim"
           />
@@ -121,7 +113,7 @@ function CalculatorPage() {
                 Chegará no nível{" "}
                 <CustomSelect
                   options={getNextLevels(XP_TABLE, currentLevelXp?.level?.toString())}
-                  onChange={(e) => setCustomLevel(e.currentTarget.value)}
+                  onChange={(e) => setCustomLevel(e.currentTarget?.value)}
                 />{" "}
                 em {result.customLevelIn.hours}h e {result.customLevelIn.minutes}m
               </Typography>
@@ -129,7 +121,7 @@ function CalculatorPage() {
           )}
         </SectionContainer>
       </SectionContainer>
-      <SectionContainer direction="row" gap="12px" width="100%" justify="center">
+      <SectionContainer flex={2} direction="row" gap="12px" width="100%" justify="center" align="center">
         <Button onClick={() => setAddHistoryModal(true)} disabled={!allValid()}>
           Salvar
         </Button>

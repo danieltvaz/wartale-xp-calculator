@@ -31,13 +31,7 @@ const PARTY_DATA = [
   { id: 6, title: "6", value: 6 },
 ] as CustomSelectProps["options"];
 
-export default function AddXPHistoryModal({
-  onAdd,
-  visible,
-  setVisible,
-  xpData,
-  defaultCharacter,
-}: XPHistoryModalProps) {
+export default function AddXPHistoryModal({ onAdd, visible, setVisible, xpData }: XPHistoryModalProps) {
   const { getAllCharacters } = charactersHandler();
   const [character, setCharacter] = useState(0);
   const [selectedMap, setSelectedMap] = useState(0);
@@ -78,7 +72,7 @@ export default function AddXPHistoryModal({
               Personagem:
             </Typography>
             <Spacer orientation="horizontal" />
-            <CustomSelect options={charactersToSelectFactory} onChange={(e) => setCharacter(+e.currentTarget.value)} />
+            <CustomSelect options={charactersToSelectFactory} onChange={(e) => setCharacter(+e.currentTarget?.value)} />
           </SectionContainer>
           <Divider margin="8px" />
           <SectionContainer>
@@ -86,7 +80,7 @@ export default function AddXPHistoryModal({
               Mapa:
             </Typography>
             <Spacer orientation="horizontal" />
-            <CustomSelect options={mapsToSelectFactory} onChange={(e) => setSelectedMap(+e.currentTarget.value)} />
+            <CustomSelect options={mapsToSelectFactory} onChange={(e) => setSelectedMap(+e.currentTarget?.value)} />
           </SectionContainer>
           <Divider margin="8px" />
           <SectionContainer>
@@ -94,7 +88,7 @@ export default function AddXPHistoryModal({
               Party:
             </Typography>
             <Spacer orientation="horizontal" />
-            <CustomSelect options={PARTY_DATA} onChange={(e) => setSelectPartySize(+e.currentTarget.value)} />
+            <CustomSelect options={PARTY_DATA} onChange={(e) => setSelectPartySize(+e.currentTarget?.value)} />
           </SectionContainer>
           <Divider margin="8px" />
           <SectionContainer>
@@ -140,6 +134,7 @@ export default function AddXPHistoryModal({
             </Typography>
           </SectionContainer>
         </SectionContainer>
+        <Divider margin="12px" />
         <SectionContainer direction="column" justify="flex-end" flex={1} align="center">
           <Button onClick={handleOnAdd}>Salvar</Button>
           <Spacer orientation="vertical" />
