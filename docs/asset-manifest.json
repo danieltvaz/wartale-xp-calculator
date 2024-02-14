@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/wartale-xp-calculator/static/css/main.12cf4aa2.css",
-    "main.js": "/wartale-xp-calculator/static/js/main.e1c7385b.js",
-    "static/js/27.f6e6e2b9.chunk.js": "/wartale-xp-calculator/static/js/27.f6e6e2b9.chunk.js",
+    "main.css": "/wartale-xp-calculator/static/css/main.ca1139f8.css",
+    "main.js": "/wartale-xp-calculator/static/js/main.ef4a4dbf.js",
+    "static/js/27.7642738a.chunk.js": "/wartale-xp-calculator/static/js/27.7642738a.chunk.js",
     "static/media/alert.wav": "/wartale-xp-calculator/static/media/alert.ecd48317d3fee8df655e.wav",
     "static/media/MS.png": "/wartale-xp-calculator/static/media/MS.c9a049cf4b3776fa1f83.png",
     "static/media/MGS.png": "/wartale-xp-calculator/static/media/MGS.b606d7dcb6e3d7ee5fda.png",
@@ -17,7 +17,7 @@
     "index.html": "/wartale-xp-calculator/index.html"
   },
   "entrypoints": [
-    "static/css/main.12cf4aa2.css",
-    "static/js/main.e1c7385b.js"
+    "static/css/main.ca1139f8.css",
+    "static/js/main.ef4a4dbf.js"
   ]
 }
