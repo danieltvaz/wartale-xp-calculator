@@ -10,15 +10,22 @@
   width: 100%;
 }
 
-.history-list-table thead td {
-  font-weight: 500;
-}
-
-.history-list-table tr td {
+.history-list-table td,
+tr {
   border: 1px solid #bdaf94;
   text-align: center;
 }
 
 .history-list-table tr td:first-of-type {
   width: 100px;
+}
+
+.history-list-table tr,
+td {
+  text-align: left;
+  padding: 2px;
+}
+
+.history-list-table th {
+  padding: 4px 8px;
 }

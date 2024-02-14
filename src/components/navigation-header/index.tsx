@@ -7,7 +7,7 @@ import { router } from "../../router";
 export default function NavigationHeader() {
   return (
     <>
-      <Logo />
+      {/* <Logo /> */}
       <div className="navigation-container">
         {router.routes.map((route, index) => (
           <Link className="link" key={`${route}-${index}`} to={route.path ?? "/"}>

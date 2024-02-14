@@ -54,7 +54,7 @@ export default function CharacterAddModal({ onAdd, visible, setVisible }: Charac
           <label>Classe</label>
           <CustomSelect
             defaultValue={"Classe"}
-            onChange={(e) => handleChange(e.currentTarget.value as Class)}
+            onChange={(e) => handleChange(e.currentTarget?.value as Class)}
             options={[
               {
                 id: 0,
@@ -117,13 +117,13 @@ export default function CharacterAddModal({ onAdd, visible, setVisible }: Charac
           <label>Nome</label>
           <TextInput
             value={character.name}
-            onChange={(e) => setCharacter((character) => ({ ...character, name: e.target.value }))}
+            onChange={(e) => setCharacter((character) => ({ ...character, name: e.target?.value }))}
           />
           <Spacer orientation="vertical" />
           <label>Level</label>
           <TextInput
             value={character.level}
-            onChange={(e) => setCharacter((character) => ({ ...character, level: +e.target.value }))}
+            onChange={(e) => setCharacter((character) => ({ ...character, level: +e.target?.value }))}
           />
         </SectionContainer>
       </div>

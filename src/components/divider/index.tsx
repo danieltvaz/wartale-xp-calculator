@@ -1,5 +1,10 @@
 import "./styles.css";
 
-export default function Divider() {
-  return <div className="divider"></div>;
+type Props = {
+  margin?: string;
+  width?: string;
+};
+
+export default function Divider({ margin, width }: Props) {
+  return <div className="divider" style={{ margin: `${margin} 0px ${margin} 0px`, minWidth: width }}></div>;
 }
