@@ -16,7 +16,9 @@ export type CustomSelectProps = {
 export default function CustomSelect({ options, ...props }: CustomSelectProps) {
   return (
     <select className="select" {...props}>
-      {!options.length && <option>- - - - -</option>}
+      <option defaultChecked value={0}>
+        - - - - -
+      </option>
       {options.map((option, index) => (
         <option
           {...(option.default && { disabled: true, hidden: true })}
