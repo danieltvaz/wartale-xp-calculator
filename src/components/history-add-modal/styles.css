@@ -1,7 +1,7 @@
 .add-xp-history-modal--wrapper {
   position: fixed;
-  width: 100vw;
   height: 100vh;
+  max-width: 420px;
   flex: 1;
   background-color: #513d24;
 }
