@@ -14,5 +14,11 @@ export default function historyHandler() {
     localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(newHistory));
   }
 
-  return { getHistory, addHistory };
+  function deleteHistory(id: number) {
+    const newHistory = getHistory().filter((history) => history.id !== id);
+
+    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(newHistory));
+  }
+
+  return { getHistory, addHistory, deleteHistory };
 }
