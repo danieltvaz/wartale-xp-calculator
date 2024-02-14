@@ -24,9 +24,17 @@ export default function SectionContainer({
 }: SectionContainerProps) {
   return (
     <div
+      {...props}
       className="sectioncontainer--wrapper"
-      style={{ flexDirection: direction, alignItems: align, justifyContent: justify, flex, gap, width }}
-      {...props}>
+      style={{
+        flexDirection: direction,
+        alignItems: align,
+        justifyContent: justify,
+        flex,
+        gap,
+        width,
+        ...props.style,
+      }}>
       {children}
     </div>
   );
