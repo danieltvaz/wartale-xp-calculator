@@ -1,17 +1,22 @@
+import { Character, XPHistory } from "../../types";
 import { formatResult, getNextLevels } from "../../utils";
 
-import AddXPHistoryModal from "../../components/history-add-modal";
+import AddXPHistoryModal from "../../components/composition_history-add";
+import BottomModalWrapper from "../../components/bottom-modal-wrapper";
 import Button from "../../components/button";
+import CharacterAddModal from "../../components/composition_character-add";
 import CustomSelect from "../../components/custom-select";
 import { DEFAULT_TIME } from "../../constants/params";
 import Divider from "../../components/divider";
 import Logo from "../../components/logo";
 import MainWrapper from "../../components/main-wrapper";
+import ModalWrapper from "../../components/modal-wrapper";
 import NavigationHeader from "../../components/navigation-header";
 import SectionContainer from "../../components/section-container";
 import TextInput from "../../components/text-input";
 import Typography from "../../components/typography";
 import { XP_TABLE } from "../../constants/xp-table";
+import charactersHandler from "../../utils/characters-handler";
 import historyHandler from "../../utils/history-handler";
 import useCalculator from "../../hooks/useCalculator";
 import useCounter from "../../hooks/useCounter";
@@ -35,32 +40,43 @@ function CalculatorPage() {
   const { count, clearCounter, startCounter } = useCounter();
 
   const { addHistory } = historyHandler();
+  const { addNewCharacter } = charactersHandler();
 
   const [addHistoryModal, setAddHistoryModal] = useState(false);
+  const [addCharacterModal, setAddCharacterModal] = useState(false);
+
+  function onAddCharacterHandler(character: Omit<Character, "id">) {
+    addNewCharacter(character);
+    setAddCharacterModal(false);
+  }
+
+  function onAddHistoryHandler(history: Omit<XPHistory, "id">) {
+    addHistory(history);
+    setAddHistoryModal(false);
+  }
 
   return (
     <MainWrapper>
-      <AddXPHistoryModal
-        xpData={{
-          currentLevel: currentLevelXp?.level,
-          currentXp,
-          nextLevelIn: result?.nextLevelIn,
-          perHour: result?.perHour,
-          perMinute: result?.perMinute,
-          targetXp,
-          unit,
-          date: new Date().getTime(),
-        }}
-        setVisible={setAddHistoryModal}
-        visible={addHistoryModal}
-        onAdd={addHistory}
-      />
-      <SectionContainer justify="center" align="center" width="100%">
-        <Logo />
-      </SectionContainer>
-      <SectionContainer>
-        <NavigationHeader />
-      </SectionContainer>
+      <ModalWrapper isVisible={addHistoryModal} setIsVisible={setAddHistoryModal} zIndex={1}>
+        <AddXPHistoryModal
+          xpData={{
+            currentLevel: currentLevelXp?.level,
+            currentXp,
+            nextLevelIn: result?.nextLevelIn,
+            perHour: result?.perHour,
+            perMinute: result?.perMinute,
+            targetXp,
+            unit,
+            date: new Date().getTime(),
+          }}
+          onAddHistory={onAddHistoryHandler}
+          onAddCharacter={() => setAddCharacterModal(true)}
+        />
+      </ModalWrapper>
+      <BottomModalWrapper isVisible={addCharacterModal} setIsVisible={setAddCharacterModal} zIndex={2}>
+        <CharacterAddModal onAdd={onAddCharacterHandler} />
+      </BottomModalWrapper>
+
       <Divider margin="24px" />
       <SectionContainer direction="column" flex={1} width="100%">
         <SectionContainer direction="row" justify="flex-start" gap="12px" align="center" width="100%">

@@ -20,7 +20,6 @@ export default function HistoryTable({ history, onRemove }: HistoryTableProps) {
 
   return (
     <>
-      <Logo />
       <div className="history-list--wrapper">
         <div className="history-list-content--wrapper">
           <table className="history-list-table">

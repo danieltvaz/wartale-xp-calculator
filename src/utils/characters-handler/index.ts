@@ -3,7 +3,7 @@ import { Character } from "../../types";
 import { getUniqueId } from "..";
 
 export default function charactersHandler() {
-  function addNewCharacter(character: Character) {
+  function addNewCharacter(character: Omit<Character, "id">) {
     const charactersStorage: Character[] | [] = JSON.parse(localStorage.getItem(CHARACTERS_STORAGE_KEY) ?? "[]");
     const newCharactersStorage = [...charactersStorage, { ...character, id: getUniqueId(charactersStorage) }];
     localStorage.setItem(CHARACTERS_STORAGE_KEY, JSON.stringify(newCharactersStorage));
