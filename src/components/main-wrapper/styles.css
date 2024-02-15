@@ -6,7 +6,7 @@
   background-color: #513d24;
   max-width: 420px;
   margin: auto;
-  overflow: hidden;
+  overflow: auto;
 }
 
 @media screen and (min-width: 270px) and (max-width: 420px) {
