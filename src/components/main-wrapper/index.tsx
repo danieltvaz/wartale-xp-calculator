@@ -4,6 +4,7 @@ import Logo from "../logo";
 import NavigationHeader from "../navigation-header";
 import { ReactNode } from "react";
 import SectionContainer from "../section-container";
+import Spacer from "../spacer";
 
 type MainWrapperProps = {
   children: ReactNode;
@@ -12,11 +13,9 @@ type MainWrapperProps = {
 export default function MainWrapper({ children }: MainWrapperProps) {
   return (
     <main className="main-wrapper">
-      <SectionContainer justify="center" align="center" width="100%">
-        <Logo />
-      </SectionContainer>
       <SectionContainer>
         <NavigationHeader />
+        <Spacer orientation="vertical" size="180px" />
       </SectionContainer>
       {children}
     </main>

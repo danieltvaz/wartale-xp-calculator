@@ -76,7 +76,6 @@ function CalculatorPage() {
       <BottomModalWrapper isVisible={addCharacterModal} setIsVisible={setAddCharacterModal} zIndex={2}>
         <CharacterAddModal onAdd={onAddCharacterHandler} />
       </BottomModalWrapper>
-
       <Divider margin="24px" />
       <SectionContainer direction="column" flex={1} width="100%">
         <SectionContainer direction="row" justify="flex-start" gap="12px" align="center" width="100%">
