@@ -1,11 +1,15 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import "./styles.css";
 
+import React, { useMemo, useState } from "react";
+import { calculateCustomLevelIn, formatResult, getNextLevels } from "../../utils";
+
 import Button from "../button";
-import React from "react";
+import CustomSelect from "../custom-select";
 import Spacer from "../spacer";
 import { XPHistory } from "../../types";
+import { XP_TABLE } from "../../constants/xp-table";
 import charactersHandler from "../../utils/characters-handler";
-import { formatResult } from "../../utils";
 import mapHandler from "../../utils/map-handler";
 
 type HistoryTableProps = {
@@ -49,10 +53,36 @@ export default function HistoryTable({ history, onRemove }: HistoryTableProps) {
                   <td>{formatResult(history.perMinute)}</td>
                 </tr>
                 <tr>
+                  {(() => {
+                    const [customLevel, setCustomLevel] = useState(0);
+
+                    const customLevelTime = useMemo(() => {
+                      return calculateCustomLevelIn(
+                        history.currentXp.toString(),
+                        history.unit,
+                        customLevel,
+                        history.perMinute
+                      );
+                    }, [customLevel]);
+
+                    return (
+                      <td colSpan={2}>
+                        Nível{" "}
+                        <CustomSelect
+                          options={getNextLevels(XP_TABLE, history.currentLevel.toString())}
+                          onChange={(e) => setCustomLevel(+e?.currentTarget?.value)}
+                        />{" "}
+                        em {customLevelTime.hours}h {customLevelTime.minutes}m
+                      </td>
+                    );
+                  })()}
+                </tr>
+                <tr>
                   <td colSpan={2}>
                     <Button onClick={() => onRemove(history)}>Remover</Button>
                   </td>
                 </tr>
+
                 <Spacer orientation="vertical" />
               </React.Fragment>
             ))}
