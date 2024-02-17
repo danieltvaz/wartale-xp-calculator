@@ -62,10 +62,6 @@ export default function AddXPHistoryModal({ onAddHistory, xpData, onAddCharacter
 
   const isFormValid = !!(character && selectedMap && selectedPartySize);
 
-  useEffect(() => {
-    console.log(character);
-  }, [character]);
-
   return (
     <>
       <SectionContainer direction="column" justify="flex-start" flex={3}>

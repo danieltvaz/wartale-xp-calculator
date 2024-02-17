@@ -1,11 +1,14 @@
 import "./styles.css";
 
+import Button from "../button";
 import { Character } from "../../types";
 import React from "react";
+import Spacer from "../spacer";
 
 type CharactersTableProps = {
   characters: Character[];
   onSelect?: (character: Character) => any | void;
+  onChangeLevel: (characterId: number, newLevel: number) => any;
 };
 
 const IMAGES = {
@@ -21,7 +24,7 @@ const IMAGES = {
   BS: require("../../assets/class-icon/BS.png"),
 };
 
-export default function CharactersTable({ characters, onSelect }: CharactersTableProps) {
+export default function CharactersTable({ characters, onSelect, onChangeLevel }: CharactersTableProps) {
   return (
     <table className="character-table" cellSpacing="4">
       <thead>
@@ -43,6 +46,11 @@ export default function CharactersTable({ characters, onSelect }: CharactersTabl
               </td>
               <td>
                 <span>{character.level}</span>
+              </td>
+              <td>
+                <Button onClick={() => onChangeLevel(character.id, character.level + 1)}>+ Level</Button>
+                <Spacer orientation="vertical" size="8px" />
+                <Button onClick={() => onChangeLevel(character.id, character.level - 1)}>- Level</Button>
               </td>
             </tr>
           </React.Fragment>
