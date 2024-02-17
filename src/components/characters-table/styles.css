@@ -5,6 +5,7 @@
 .character-table td {
   border: 1px solid #bdaf94;
   text-align: center;
+  vertical-align: middle;
 }
 
 .character-table tr td:first-of-type {

@@ -20,5 +20,15 @@ export default function charactersHandler() {
     return character;
   }
 
-  return { addNewCharacter, getAllCharacters, getCharacter };
+  function editCharacterLevel(characterId: number, newLevel: number) {
+    const newCharacter = { ...getCharacter(characterId), level: newLevel };
+
+    const newCharactersStorage = getAllCharacters().map((character) =>
+      character.id === characterId ? newCharacter : character
+    );
+
+    localStorage.setItem(CHARACTERS_STORAGE_KEY, JSON.stringify(newCharactersStorage));
+  }
+
+  return { addNewCharacter, getAllCharacters, getCharacter, editCharacterLevel };
 }
