@@ -56,3 +56,20 @@ export function timeStampToDate(timestamp: number) {
 
   return `${day}/${month}/${year} - ${hour}:${minutes}`;
 }
+
+export function calculateCustomLevelIn(currentXp: string, unit: Unit, customLevel: number, xpPerMinute: number) {
+  const currentXpInRealValue = xpInRealValue(+currentXp, unit);
+  const currentXpToTargetXpDifference = +customLevel - currentXpInRealValue;
+
+  let hours = (currentXpToTargetXpDifference / (xpPerMinute * 60)).toFixed(0);
+  let minutes = ((currentXpToTargetXpDifference / xpPerMinute) % 60).toFixed(0);
+
+  if (+hours < 0) {
+    hours = "0";
+  }
+  if (+minutes < 0) {
+    minutes = "0";
+  }
+
+  return { hours, minutes };
+}
