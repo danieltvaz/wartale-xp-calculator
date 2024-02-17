@@ -1,7 +1,6 @@
 import "./styles.css";
 
 import Button from "../button";
-import Logo from "../logo";
 import React from "react";
 import Spacer from "../spacer";
 import { XPHistory } from "../../types";
