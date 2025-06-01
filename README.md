@@ -17,8 +17,6 @@ https://wartale-xp-calculator.danieltostes.dev/
 
 ## 🧑‍💻 Technologies
 
-## 🧑‍💻 Technologies
-
 - [ReactJS](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Styled Components](https://styled-components.com/)
