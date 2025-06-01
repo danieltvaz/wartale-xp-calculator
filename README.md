@@ -2,61 +2,64 @@
 
 # Wartale XP Calculator 🎮📈
 
-Uma calculadora de experiência (XP) para o servidor **Wartale** do jogo **Priston Tale**.  
-Com ela, jogadores podem estimar quanto tempo levarão para alcançar um determinado nível com base no rendimento atual de
-XP em campo.
+An experience (XP) calculator for the **Wartale** server of the game **Priston Tale**.  
+With it, players can estimate how long it will take to reach a certain level based on their current XP performance in the field.
 
-## ✨ Funcionalidades
+The APP is actually online and hosted on my personal AWS infrastructure:
+https://wartale-xp-calculator.danieltostes.dev/
 
-- Cálculo de tempo estimado para subir de nível.
-- Temporizador de 60 segundos com alerta sonoro para registrar o rendimento de XP.
-- Registro e reutilização dos dados dos personagens para evitar reentradas manuais.
-- Interface amigável desenvolvida com React.
+## ✨ Features
 
-## 🧑‍💻 Tecnologias
+- Estimated time calculation to level up.
+- 60-second timer with sound alert to record XP yield.
+- Character data storage and reuse to avoid manual re-entry.
+- User-friendly interface developed with React.
+
+## 🧑‍💻 Technologies
 
 - [ReactJS](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Styled Components](https://styled-components.com/)
-- [Docker](https://www.docker.com/) / [Podman](https://podman.io/) para containerização e execução da aplicação
+- [Docker](https://www.docker.com/) / [Podman](https://podman.io/) for containerization and application execution
+- [AWS](https://aws.amazon.com/) — the app is hosted on an EC2 instance
+- [PM2](https://pm2.keymetrics.io/) for process management
+- [serve](https://www.npmjs.com/package/serve) to serve the built React app
+- [Nginx](https://www.nginx.com/) as a reverse proxy
+- [Certbot](https://certbot.eff.org/) for HTTPS certificate generation and renewal
 
-## 🕹️ Para quem é este projeto?
+## 🕹️ Who is this project for?
 
-Feito para jogadores do **Wartale**, servidor alternativo do clássico MMORPG **Priston Tale**, que desejam otimizar seu
-tempo de evolução.
+Built for players of **Wartale**, an alternative server of the classic MMORPG **Priston Tale**, who want to optimize their leveling time.
 
-## ☁️ Infraestrutura
+## ☁️ Infrastructure
 
-O projeto está hospedado em uma máquina **EC2** da **Amazon Web Services (AWS)** e tem CI/CD automatizado configurado,
-utilizando o Github Actions para o deploy.
+The project is hosted on an **Amazon Web Services (AWS) EC2** instance and has automated CI/CD configured using GitHub Actions for deployment.
 
-## 📦 Instalação e execução
+## 📦 Installation and Execution
 
-Para rodar o projeto localmente, você precisará do **Docker** ou **Podman** instalado na sua máquina. Todas as
-dependências da aplicação são gerenciadas dentro do container.
+To run the project locally, you’ll need **Docker** or **Podman** installed on your machine. All application dependencies are managed inside the container.
 
-### Passos para rodar
+### Steps to Run
 
-1. Clone este repositório:
+1. Clone this repository:
 
    ```bash
-   git clone https://github.com/seu-usuario/wartale-xp-calculator.git
+   git clone https://github.com/your-username/wartale-xp-calculator.git
    cd wartale-xp-calculator
-   ```
 
-2. Executando o container
+2. Run the container:
 
-- Caso você use o Docker:
+- If you're using Docker:
   ```
   ./run-container-docker.sh
   ```
-- Caso você use o Podman:
+- If you're using Podman:
 
   ```
   ./run-container-podman.sh
   ```
 
-  Dependendo do sistema operacional, pode ser necessário tornar o script executável com o comando:
+  Depending on your operating system, you might need to make the script executable:
 
   ```
   chmod +x ./run-container-{podman | docker}.sh
