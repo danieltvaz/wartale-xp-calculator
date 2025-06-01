@@ -4,26 +4,23 @@ import CalculatorPage from "../pages/calculator";
 import CharactersPage from "../pages/characters";
 import HistoryPage from "../pages/history";
 
-export const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <CalculatorPage />,
-      id: "Calculadora",
-    },
-    {
-      path: "/history",
-      element: <HistoryPage />,
-      id: "Histórico",
-    },
-    {
-      path: "/personagens",
-      element: <CharactersPage />,
-      id: "Personagens",
-    },
-  ],
-  { basename: "/wartale-xp-calculator" }
-);
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CalculatorPage />,
+    id: "Calculadora",
+  },
+  {
+    path: "/history",
+    element: <HistoryPage />,
+    id: "Histórico",
+  },
+  {
+    path: "/personagens",
+    element: <CharactersPage />,
+    id: "Personagens",
+  },
+]);
 
 export default function Router() {
   return <RouterProvider router={router} />;
