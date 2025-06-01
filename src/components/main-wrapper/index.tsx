@@ -12,7 +12,7 @@ type MainWrapperProps = {
 export default function MainWrapper({ children }: MainWrapperProps) {
   return (
     <main className="main-wrapper">
-      <SectionContainer>
+      <SectionContainer width="100%" height="150px">
         <NavigationHeader />
         <Spacer orientation="vertical" size="180px" />
       </SectionContainer>

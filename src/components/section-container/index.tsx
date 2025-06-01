@@ -10,6 +10,8 @@ type SectionContainerProps = {
   flex?: number;
   gap?: string;
   width?: string;
+  height?: string;
+  flexWrap?: "wrap" | "nowrap" | "wrap-reverse";
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 export default function SectionContainer({
@@ -20,6 +22,8 @@ export default function SectionContainer({
   flex,
   gap,
   width,
+  height,
+  flexWrap,
   ...props
 }: SectionContainerProps) {
   return (
@@ -33,6 +37,8 @@ export default function SectionContainer({
         flex,
         gap,
         width,
+        height,
+        flexWrap,
         ...props.style,
       }}>
       {children}

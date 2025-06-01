@@ -10,7 +10,7 @@ export default function NavigationHeader() {
     <>
       <div className="navigation-container">
         <Logo />
-        <SectionContainer gap="8px">
+        <SectionContainer gap="8px" width="100%" justify="center">
           {router.routes.map((route, index) => (
             <Link className="link" key={`${route}-${index}`} to={route.path ?? "/"}>
               {route?.id}

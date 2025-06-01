@@ -1,16 +1,17 @@
 .navigation-container {
   display: flex;
   height: 128px;
-  width: 100%;
   background: #513d24;
   gap: 12px;
   align-items: center;
   justify-content: center;
-  position: absolute;
   flex-direction: column;
+  padding-top: 12px;
+  width: 100%;
+  /* position: absolute;
   left: 50%;
   top: 0;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%); */
 }
 
 .link {
