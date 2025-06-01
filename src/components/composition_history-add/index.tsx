@@ -1,11 +1,10 @@
 import { Character, XPHistory } from "../../types";
 import CustomSelect, { CustomSelectProps } from "../custom-select";
 import { formatResult, timeStampToDate } from "../../utils";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import Button from "../button";
 import Divider from "../divider";
-import Logo from "../logo";
 import { MAPS } from "../../constants/maps";
 import SectionContainer from "../section-container";
 import Spacer from "../spacer";

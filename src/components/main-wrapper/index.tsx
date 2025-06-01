@@ -1,6 +1,5 @@
 import "./styles.css";
 
-import Logo from "../logo";
 import NavigationHeader from "../navigation-header";
 import { ReactNode } from "react";
 import SectionContainer from "../section-container";

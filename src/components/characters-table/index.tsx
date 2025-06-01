@@ -39,7 +39,9 @@ export default function CharactersTable({ characters, onSelect, onChangeLevel }:
           <React.Fragment key={index}>
             <tr onClick={() => onSelect?.(character)}>
               <td>
-                {IMAGES[character.className] && <img className="character-icon" src={IMAGES[character.className]} />}
+                {IMAGES[character.className] && (
+                  <img className="character-icon" src={IMAGES[character.className]} alt="" />
+                )}
               </td>
               <td>
                 <span>{character.name}</span>

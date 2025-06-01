@@ -1,8 +1,7 @@
-import { AnyObjectWithId, Class, Unit } from "../types";
+import { AnyObjectWithId, Unit } from "../types";
 
 import { NUMBERS } from "../constants/numbers";
 import { XP_TABLE_TYPE } from "../constants/xp-table";
-import { lazy } from "react";
 
 export function getNextLevels(xpTable: XP_TABLE_TYPE[], currentLevel: string) {
   const nextLevelList = xpTable

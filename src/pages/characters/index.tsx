@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function CharactersPage() {
   const { getAllCharacters, addNewCharacter, editCharacterLevel } = charactersHandler();
   const [isCharacterModal, setIsCharacterModal] = useState(false);
-  const [refresh, setRefresh] = useState(0);
+  // const [refresh, setRefresh] = useState(0);
 
   function handleOnAdd(character: Omit<Character, "id">) {
     addNewCharacter({
@@ -22,7 +22,7 @@ export default function CharactersPage() {
 
   function handleOnChangeLevel(characterId: number, newLevel: number) {
     editCharacterLevel(characterId, newLevel);
-    setRefresh((prev) => prev + 1);
+    // setRefresh((prev) => prev + 1);
   }
 
   return (

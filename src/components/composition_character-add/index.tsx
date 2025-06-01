@@ -1,5 +1,4 @@
 import { Character, Class } from "../../types";
-import { useMemo, useState } from "react";
 
 import Button from "../button";
 import CustomSelect from "../custom-select";
@@ -7,6 +6,7 @@ import Divider from "../divider";
 import SectionContainer from "../section-container";
 import TextInput from "../text-input";
 import Typography from "../typography";
+import { useState } from "react";
 
 type Props = {
   onAdd: (character: Omit<Character, "id">) => any;

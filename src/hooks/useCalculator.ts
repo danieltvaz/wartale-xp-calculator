@@ -49,7 +49,7 @@ export default function useCalculator() {
     setNextLevelXp(CURRENT_AND_NEXT_XP_INITIAL_VALUES);
   }
 
-  function getCurrentAndNextLevels() {
+  const getCurrentAndNextLevels = useCallback(() => {
     try {
       const currentXpInRealValue = xpInRealValue(+currentXp, unit);
 
@@ -61,9 +61,9 @@ export default function useCalculator() {
       setCurrentLevelXp(currentAndNextLevel[0]);
       setNextLevelXp(currentAndNextLevel[1]);
     } catch {}
-  }
+  }, [currentXp, unit]);
 
-  function calculateNextLevelIn() {
+  const calculateNextLevelIn = useCallback(() => {
     try {
       const currentXpInRealValue = xpInRealValue(currentXp, unit);
 
@@ -80,7 +80,7 @@ export default function useCalculator() {
         },
       }));
     } catch {}
-  }
+  }, [currentXp, nextLevelXp, result.perHour, result.perMinute, unit]);
 
   const calculateCustomLevelIn = useCallback(() => {
     try {
@@ -94,7 +94,7 @@ export default function useCalculator() {
     } catch {}
   }, [currentXp, customLevel, result.perHour, result.perMinute, unit]);
 
-  function calculateXpDiference() {
+  const calculateXpDiference = useCallback(() => {
     try {
       const currentXpInRealValue = xpInRealValue(+currentXp, unit);
       const targetXpInRealValue = +targetXp * NUMBERS[unit as keyof typeof NUMBERS];
@@ -104,15 +104,15 @@ export default function useCalculator() {
         setResult((prev) => ({ ...prev, perMinute, perHour: perMinute * 60 }));
       }
     } catch {}
-  }
+  }, [currentXp, targetXp, unit]);
 
   useEffect(() => {
     getCurrentAndNextLevels();
-  }, [currentXp, unit]);
+  }, [currentXp, unit, getCurrentAndNextLevels]);
 
   useEffect(() => {
     if (result.perHour) calculateNextLevelIn();
-  }, [result.perHour]);
+  }, [result.perHour, calculateNextLevelIn]);
 
   useEffect(() => {
     calculateCustomLevelIn();
@@ -124,7 +124,7 @@ export default function useCalculator() {
 
   useEffect(() => {
     if (currentXp < targetXp) calculateXpDiference();
-  }, [currentXp, targetXp]);
+  }, [currentXp, targetXp, calculateXpDiference]);
 
   return {
     currentXp,

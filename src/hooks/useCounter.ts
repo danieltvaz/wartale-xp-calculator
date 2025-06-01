@@ -14,14 +14,14 @@ export default function useCounter(seconds: number = 60) {
     }, 1000);
   }, [intervalRef]);
 
-  function clearCounter() {
+  const clearCounter = useCallback(() => {
     clearInterval(intervalRef.current);
     setCount(seconds);
-  }
+  }, [seconds]);
 
   useEffect(() => {
     if (!count) clearCounter();
-  }, [count]);
+  }, [count, clearCounter]);
 
   useEffect(() => {
     if (!count) {
