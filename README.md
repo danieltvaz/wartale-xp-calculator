@@ -17,6 +17,8 @@ https://wartale-xp-calculator.danieltostes.dev/
 
 ## 🧑‍💻 Technologies
 
+## 🧑‍💻 Technologies
+
 - [ReactJS](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Styled Components](https://styled-components.com/)
@@ -26,6 +28,7 @@ https://wartale-xp-calculator.danieltostes.dev/
 - [serve](https://www.npmjs.com/package/serve) to serve the built React app
 - [Nginx](https://www.nginx.com/) as a reverse proxy
 - [Certbot](https://certbot.eff.org/) for HTTPS certificate generation and renewal
+- [GitHub Actions](https://github.com/features/actions) for automated CI/CD deployment
 
 ## 🕹️ Who is this project for?
 
