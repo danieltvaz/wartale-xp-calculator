@@ -1,0 +1,45 @@
+name: deploy-wartale-xp-calculator-ec2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: aws_ec2
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instala dependências e builda CRA
+        run: |
+          npm install
+          npm run build
+          tar -czf build.tar.gz build
+      - name: Configura SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Envia build para EC2
+        run: |
+          scp -i ~/.ssh/id_ed25519 build.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/build.tar.gz
+      - name: Atualiza EC2 com novo build
+        run: |
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            set -e
+            cd ~/wartale-xp-calculator
+            echo "🔄 Limpando build anterior..."
+            rm -rf build
+            echo "📦 Extraindo novo build..."
+            tar -xzf ~/build.tar.gz
+            rm ~/build.tar.gz
+            echo "🚀 Reiniciando aplicação com pm2..."
+            pm2 describe wartale-xp-calculator-frontend > /dev/null \
+              && pm2 restart wartale-xp-calculator-frontend \
+              || pm2 start npx --name wartale-xp-calculator-frontend -- serve -s build -l 3002
+          EOF
